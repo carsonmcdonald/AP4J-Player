@@ -1,0 +1,72 @@
+<project name="AP4J Player" default="dist" basedir="..">
+    <description>AP4J Player</description>
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <path id="main.classpath">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${build}/build"/>
+        <mkdir dir="${build}/dist"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source">
+        <javac srcdir="${src}" destdir="${build}/build" classpathref="main.classpath"/>
+    </target>
+
+    <target name="dist" depends="compile" description="generate the distribution">
+        <mkdir dir="${build}/dist/lib"/>
+        <mkdir dir="${build}/dist/resource"/>
+
+        <copy todir="${build}/dist/lib">
+            <fileset dir="lib">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${build}/dist/resource">
+            <fileset dir="resource">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${build}/dist">
+            <fileset dir="scripts">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <path id="run.classpath">
+            <fileset dir="${build}/dist/lib">
+                <include name="**/*.jar"/>
+            </fileset>
+        </path>
+
+        <jar jarfile="${build}/dist/AP4JPlayer.jar" basedir="${build}/build">
+            <manifest>
+                <attribute name="Main-Class" value="net.ioncannon.ap4j.main.Main"/>
+                <attribute name="Class-Path"
+                           value="resource lib/jetty-continuation-7.2.2.v20101205.jar lib/jetty-http-7.2.2.v20101205.jar lib/jetty-io-7.2.2.v20101205.jar lib/jetty-server-7.2.2.v20101205.jar lib/jetty-util-7.2.2.v20101205.jar lib/jmdns.jar lib/servlet-api-2.5.jar"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="package" depends="dist" description="package distribution">
+        <mkdir dir="${build}/package"/>
+
+        <zip destfile="${build}/package/ap4jplayer.zip">
+            <zipfileset dir="${build}/dist" prefix="ap4jplayer"/>
+        </zip>
+    </target>
+
+    <target name="clean" description="clean up">
+        <delete dir="${build}/build"/>
+        <delete dir="${build}/dist"/>
+        <delete dir="${build}/package"/>
+    </target>
+</project>

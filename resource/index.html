@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Main Menu</title>
+
+    <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.8.7.custom.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+    <link rel="stylesheet" href="jquery-ui-1.8.7.custom.css">
+
+    <style type="text/css">
+        body { padding: 5px; }
+        .indentedarea { padding: 10px 10px 10px 25px; }
+        .boldspan { font-weight: bold; font-size: 110%; padding-bottom: 5px; }
+        a, a:hover, a:focus, a:active { text-decoration: none; }
+        .ui-slider .ui-slider-handle { width: 12px; margin-left: -6px; height: 12px; margin-top: 1px; }
+        #playback_device_selection { padding: 0 10px 10px 0; }                
+    </style>
+</head>
+<body>
+
+<span class="boldspan">Devices available for playback:</span> <br/>
+<div id="devicelist" class="indentedarea">
+    Loading...
+</div>
+
+<span class="boldspan">Enter the URL of a video: </span> <br/>
+<div class="indentedarea">
+    <form action="#">
+        <input type="text" name="video_url" id="video_url" size="30" value=""/>
+    </form>
+    <a href="javascript:loadVideoURL('video_url');">Load Video URL</a>
+</div>
+
+</body>
+</html>
