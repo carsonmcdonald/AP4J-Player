@@ -92,6 +92,10 @@ public class JettyResourceService extends AbstractHandler
   private void sendFile(File fileToSend, Request baseRequest, HttpServletResponse response) throws IOException
   {
     String contentType = "text/html;charset=utf-8";
+    if (fileToSend.getName().endsWith("resource"))
+    {
+    	fileToSend = new File("resource/index.html");
+    }
     if(fileToSend.getName().endsWith(".js"))
     {
       contentType = "application/javascript;charset=utf-8";
